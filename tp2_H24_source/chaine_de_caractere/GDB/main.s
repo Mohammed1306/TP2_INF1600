@@ -22,9 +22,12 @@ xor %ebx, %ebx
 setup:
 movl $strings, %esi     
 
+//Garde le premier charactère du string "Allo Hi" dans %al
 n_c:
 lodsb                  
 
+//Cette étiquette vérifie que le charactère contenu dans %al est une lettre alphabétique.
+//Si c'est le cas, on saute à l'étiquette a
 d:              
 cmp $0x20, %al
 je n_c2
@@ -45,7 +48,8 @@ n_c2:
 lodsb
 
 d2:
-cmp $0,%al
+//ERREUR: pour pouvoir comparer si le charactère est un espace on doit le comparer avec 0x20
+cmp 0x20,%al
 jz r
 cmp $0x41, %al
 jb n_c2
@@ -60,19 +64,21 @@ a_2:
 addl %eax, %ebx
 jmp n_c2
 
+//Prend le résultat de l'addition de toutes les lettres du premier mot et les stocke dans %eax pour pouvoir faire la division
 r:
 movl %ecx, %eax
 
 divl %ebx
 cmp $0x00, %eax
-jmp e_n
-je e_d              
+//ERREUR: on devrait sauter à e_n si le résultat de comparaison est vrai et à e_d si ce n'est pas le cas et pas l'inverse
+je e_n
+jmp e_d              
              
-
+//Affiche le numérateur
 e_n:
 push $num
 call printf
- 
+
 jmp bye
 
 e_d:
