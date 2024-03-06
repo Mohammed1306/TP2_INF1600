@@ -73,7 +73,7 @@ divl %ebx
 cmp $0x01, %eax
 //ERREUR: on devrait sauter à e_n si le résultat de comparaison est vrai et à e_d si ce n'est pas le cas et pas l'inverse
 //ERREUR: on devrait sauter si le résultat est supérieur à 1 et non égal
-je e_n
+ja e_n
 jmp e_d              
              
 //Affiche le numérateur
