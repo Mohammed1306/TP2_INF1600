@@ -69,8 +69,10 @@ r:
 movl %ecx, %eax
 
 divl %ebx
-cmp $0x00, %eax
+//ERRUR: le résultat doit être comparé à 1 pour savoir si l'un est plus grand que l'autre
+cmp $0x01, %eax
 //ERREUR: on devrait sauter à e_n si le résultat de comparaison est vrai et à e_d si ce n'est pas le cas et pas l'inverse
+//ERREUR: on devrait sauter si le résultat est supérieur à 1 et non égal
 je e_n
 jmp e_d              
              
@@ -90,6 +92,3 @@ bye:
 popl %ebx
 popl %ebp
 ret
-
-
-
