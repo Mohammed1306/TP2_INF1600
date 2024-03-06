@@ -48,9 +48,12 @@ n_c2:
 lodsb
 
 d2:
-//ERREUR: pour pouvoir comparer si le charactère est un espace on doit le comparer avec 0x20
-cmp 0x20,%al
+//
+cmp $0x00, %al
 jz r
+//ERREUR: pour pouvoir comparer si le charactère est un espace on doit le comparer avec 0x20
+cmp $0x20, %al
+je n_c2
 cmp $0x41, %al
 jb n_c2
 cmp $0x5A, %al
@@ -68,12 +71,15 @@ jmp n_c2
 r:
 movl %ecx, %eax
 
-divl %ebx
+//on doit forcer edx a 0
+movl $0x00, %edx
+
+div %ebx
 //ERRUR: le résultat doit être comparé à 1 pour savoir si l'un est plus grand que l'autre
-cmp $0x01, %eax
+cmp $0x00, %eax
 //ERREUR: on devrait sauter à e_n si le résultat de comparaison est vrai et à e_d si ce n'est pas le cas et pas l'inverse
 //ERREUR: on devrait sauter si le résultat est supérieur à 1 et non égal
-ja e_n
+jz e_n
 jmp e_d              
              
 //Affiche le numérateur
