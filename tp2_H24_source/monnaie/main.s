@@ -3,9 +3,7 @@ caisse:
 .int 25, 10, 5, 1 
 #TODO initialiser les strings pour l'affichage des billets
 billets25:
-.asciz "Le nombre de billet de 10$: %x \n"
-billets2:
-.asciz "Le nombre de billet de 25$: %x \n Le nombre de billet de 10$: %x \n Le nombre de billet de 5$: %x \n Le nombre de billet de 1$: %x \n"
+.asciz "Le nombre de billet de 25$: %x \n"
 billets10:
 .asciz "Le nombre de billet de 10$: %x \n"
 billets5:
@@ -13,9 +11,7 @@ billets5:
 billets1:
 .asciz "Le nombre de billet de 1$: %x \n"
 montant:
-.int 106
-nombre:
-.int 0
+.int 67
 
 
 .text
@@ -39,46 +35,54 @@ movl montant, %eax
 movl $0, %edx
 divl (%ebx)
 pushl %eax
-/*pushl %eax
 pushl $billets25
 call printf
-addl $8, %esp*/
+addl $8, %esp
 
 nombre10:
+movl montant, %eax
+movl $0, %edx
+divl (%ebx)
 movl %edx, %eax
 movl $0, %edx
 divl 4(%ebx)
 pushl %eax
-/*pushl %eax
 pushl $billets10
 call printf
-addl $8, %esp*/
+addl $8, %esp
 
 nombre5:
+movl montant, %eax
+movl $0, %edx
+divl (%ebx)
+movl %edx, %eax
+movl $0, %edx
+divl 4(%ebx)
 movl %edx, %eax
 movl $0, %edx
 divl 8(%ebx)
 pushl %eax
-/*pushl %eax
 pushl $billets5
 call printf
-addl $8, %esp*/
+addl $8, %esp
 
 nombre1:
+movl montant, %eax
+movl $0, %edx
+divl (%ebx)
+movl %edx, %eax
+movl $0, %edx
+divl 4(%ebx)
+movl %edx, %eax
+movl $0, %edx
+divl 8(%ebx)
 movl %edx, %eax
 movl $0, %edx
 divl 12(%ebx)
 pushl %eax
-
-
-call printf
-addl $20, %esp
-
-
-/*pushl %edx
 pushl $billets1
 call printf
-addl $8, %esp*/
+addl $8, %esp
 
 end:
 popl %ebx
