@@ -37,11 +37,30 @@ start_exec:
     movw (%edi, %ebx, 2), %ax
 
     # TODO: put in IR and OPERANDE correct values
+    movw %ax, IR
+    movb %al, OPERANDE
     # TODO: put in %ax the opcode
+    shr $12, %ax
 
     cmpw $ADD, %ax
     je add_case
     # TODO: rest of cases
+    cmpw $SUB, %ax
+    je sub_case
+    cmpw $MUL,  %ax
+    je mul_case
+    cmpw $ST,   %ax
+    je st_case
+    cmpw $LD,   %ax
+    je ld_case
+    cmpw $BR,   %ax
+    je br_case
+    cmpw $BRZ,  %ax
+    je brz_case
+    cmpw $BRNZ, %ax
+    je brnz_case
+    cmpw $STOP, %ax
+    je stop_case
     cmpw $NOP, %ax
     je end_switch
 
@@ -54,14 +73,27 @@ start_exec:
 
     sub_case:
         # TODO: Update ACC
+        xor %eax, %eax
+        movb (OPERANDE), %al
+        movw (%edi, %eax, 2), %ax
+        subb %al, (ACC)
         jmp end_switch
 
     mul_case:
         # TODO: Update ACC
+        xor %eax, %eax
+        movb (OPERANDE), %al
+        movw (%edi, %eax, 2), %ax
+        mulw (ACC)
+        movw %ax, (ACC)
         jmp end_switch
 
     st_case:
-        # TODO
+        xor %eax, %eax
+        movb (OPERANDE), %al
+        movw   (ACC), %dx
+        movw   %dx, (%edi, %eax, 2)
+        xor    %dx, %dx
         jmp end_switch
 
     ld_case:
@@ -77,12 +109,18 @@ start_exec:
         jmp end_switch
 
     brz_case:
-        # TODO
+        movw (%edi, %ebx, 2), %ax
+        cmpw $0, (ACC)
+        jne end_switch
+        movb %al, (PC)
         jmp end_switch
 
 
     brnz_case:
-        # TODO
+        movw (%edi, %ebx, 2), %ax
+        cmpw $0, (ACC)
+        je end_switch
+        movb %al, (PC)
         jmp end_switch
 
     stop_case:
