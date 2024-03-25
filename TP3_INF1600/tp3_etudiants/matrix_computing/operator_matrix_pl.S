@@ -7,7 +7,7 @@ pushl %ebp
 movl  %esp, %ebp
 pushl %ebx
 
-/*movl 12(%ebp), %eax # this
+movl 12(%ebp), %eax # this
 movl 16(%ebp), %ebx # other
 
 movl 4(%eax), %ecx
@@ -88,7 +88,7 @@ pushl 8(%ebx)
 pushl 4(%ebx)
 pushl 12(%ebp)
 call _ZNK6Matrix16notAdditiveErrorEii
-addl $8, %esp*/
+addl $8, %esp
 
 end:
 popl %ebx
