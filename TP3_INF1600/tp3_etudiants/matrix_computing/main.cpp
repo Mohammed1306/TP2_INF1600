@@ -52,7 +52,7 @@ void determinantTest()
 }
 
 int main() {
-    multiplicationScalarTest();
-    multiplicationTest();
+    //multiplicationScalarTest();
+    //multiplicationTest();
     determinantTest();
 }

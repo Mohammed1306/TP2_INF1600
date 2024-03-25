@@ -62,3 +62,12 @@ subl $1, %eax
 pushl %eax
 cmpl $0, %eax
 jge loop_i
+
+addl $8, %esp
+movl 8(%ebp), %eax
+jmp end
+
+end:
+popl %ebx
+leave
+ret
