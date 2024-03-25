@@ -53,6 +53,6 @@ void determinantTest()
 
 int main() {
     multiplicationScalarTest();
-    //multiplicationTest();
+    multiplicationTest();
     determinantTest();
 }
