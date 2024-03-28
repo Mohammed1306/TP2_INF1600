@@ -1,0 +1,53 @@
+.text
+ ldi r0, x
+ ld r1, (r0)
+ ldi r0, y
+ ld r2, (r0)
+ ldi r10, one
+ ld r11, (r10)
+ ldi r4, 0
+ ldi r8, 0
+ ldi r16, 0
+ add r2, r2,r11
+loop1:
+ sub r9, r2, r1
+ brz end
+is_4:
+ ldi r7, macro_4
+ ld r0, (r7)
+ and r3, r1, r0
+ brnz incr
+ add r4, r4, r11
+is_8:
+ ldi r7, macro_8
+ ld r0, (r7)
+ and r3, r1, r0
+ brnz incr
+ add r8, r8, r11
+is_16:
+ ldi r7, macro_16
+ ld r0, (r7)
+ and r3, r1, r0
+ brnz incr
+ add r16, r16, r11
+incr:
+ add r1, r1, r11
+ br loop1
+end:
+ ldi r20, a
+ st (r20), r4
+ ldi r21, b
+ st (r21), r8
+ ldi r22, c
+ st (r22), r16
+ stop
+.data
+x: 1 
+y: 16
+a: 0
+b: 0
+c: 0
+one: 1
+macro_16: 15
+macro_4: 3
+macro_8: 7
